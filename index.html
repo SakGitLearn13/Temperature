@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Temperature Converter</title>
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="box">
+            <h1>Temperature Converter</h1>
+            <!-- <h4>Enter the Temperature and Unit</h4> -->
+            <input type="text" id="temp" placeholder="Enter temperature">
+            <select id="unit">
+                <option value="celsius">Select Unit</option>
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+            <br>
+            <button onclick="convert()">Convert</button>
+            <h4>The Converted Temperature: </h4>
+            <p id="res"></p>
+        </div>
+
+    </div>
+    <script>
+        function convert() {
+            const tempIn = parseFloat(document.getElementById("temp").value);
+            const tempUnit = document.getElementById("unit").value;
+            let result;
+
+            if (isNaN(tempIn)) {
+                document.getElementById("res").innerHTML = `
+                Please enter a valid number.
+            `;
+                return;
+            }
+
+            if (tempUnit === "celsius") {
+                result = {
+                    celsius: tempIn,
+                    fahrenheit: (tempIn * 9 / 5) + 32,
+                    kelvin: tempIn + 273.15
+                };
+            } else if (tempUnit === "fahrenheit") {
+                result = {
+                    celsius: (tempIn - 32) * 5 / 9,
+                    fahrenheit: tempIn,
+                    kelvin: (tempIn - 32) * 5 / 9 + 273.15
+                };
+            } else if (tempUnit === "kelvin") {
+                result = {
+                    celsius: tempIn - 273.15,
+                    fahrenheit: (tempIn - 273.15) * 9 / 5 + 32,
+                    kelvin: tempIn
+                };
+            }
+            document.getElementById("res").innerHTML = `
+                Celsius: ${result.celsius.toFixed(2)}°C<br>
+                Fahrenheit: ${result.fahrenheit.toFixed(2)}°F<br>
+                Kelvin: ${result.kelvin.toFixed(2)}K
+            `;
+        }
+    </script>
+</body>
+
+</html>
